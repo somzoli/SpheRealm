@@ -17,7 +17,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use App\Filament\Auth\LoginMain;
+//use App\Filament\Auth\LoginMain;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -27,7 +27,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('')
-            ->login(LoginMain::class)
+            ->login()
             ->colors([
                 'primary' => Color::Teal,
             ])
