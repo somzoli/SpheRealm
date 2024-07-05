@@ -17,7 +17,9 @@ class AdOrganizationalUnitsResource extends Resource
 {
     protected static ?string $model = AdOrganizationalUnits::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'fluentui-organization-12-o';
+    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationGroup = 'Domain Realm';
 
     public static function form(Form $form): Form
     {

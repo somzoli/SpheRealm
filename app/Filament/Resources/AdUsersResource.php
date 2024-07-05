@@ -17,7 +17,9 @@ class AdUsersResource extends Resource
 {
     protected static ?string $model = AdUsers::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'solar-user-rounded-bold';
+    protected static ?int $navigationSort = 0;
+    protected static ?string $navigationGroup = 'Domain Realm';
 
     public static function form(Form $form): Form
     {

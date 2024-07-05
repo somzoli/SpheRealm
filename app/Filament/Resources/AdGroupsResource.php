@@ -17,7 +17,10 @@ class AdGroupsResource extends Resource
 {
     protected static ?string $model = AdGroups::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'solar-users-group-rounded-bold';
+    protected static ?int $navigationSort = 1;
+    protected static ?string $navigationGroup = 'Domain Realm';
+
 
     public static function form(Form $form): Form
     {
