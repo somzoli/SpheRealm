@@ -19,7 +19,7 @@ class AdGroupsResource extends Resource
 
     protected static ?string $navigationIcon = 'solar-users-group-rounded-bold';
     protected static ?int $navigationSort = 1;
-    protected static ?string $navigationGroup = 'Domain Realm';
+    protected static ?string $navigationGroup = 'Domain';
 
 
     public static function form(Form $form): Form
@@ -60,8 +60,8 @@ class AdGroupsResource extends Resource
     {
         return [
             'index' => Pages\ListAdGroups::route('/'),
-            'create' => Pages\CreateAdGroups::route('/create'),
-            'edit' => Pages\EditAdGroups::route('/{record}/edit'),
+            //'create' => Pages\CreateAdGroups::route('/create'),
+            //'edit' => Pages\EditAdGroups::route('/{record}/edit'),
         ];
     }
 }

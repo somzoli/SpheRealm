@@ -33,7 +33,7 @@ return [
 
     'nav.group' => 'Access Shield',
     'nav.role.label' => 'Roles',
-    'nav.role.icon' => 'heroicon-o-shield-check',
+    'nav.role.icon' => 'solar-shield-bold',
     'resource.label.role' => 'Role',
     'resource.label.roles' => 'Roles',
 

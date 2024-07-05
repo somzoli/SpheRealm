@@ -19,7 +19,7 @@ class AdUsersResource extends Resource
 
     protected static ?string $navigationIcon = 'solar-user-rounded-bold';
     protected static ?int $navigationSort = 0;
-    protected static ?string $navigationGroup = 'Domain Realm';
+    protected static ?string $navigationGroup = 'Domain';
 
     public static function form(Form $form): Form
     {
@@ -59,8 +59,8 @@ class AdUsersResource extends Resource
     {
         return [
             'index' => Pages\ListAdUsers::route('/'),
-            'create' => Pages\CreateAdUsers::route('/create'),
-            'edit' => Pages\EditAdUsers::route('/{record}/edit'),
+            //'create' => Pages\CreateAdUsers::route('/create'),
+            //'edit' => Pages\EditAdUsers::route('/{record}/edit'),
         ];
     }
 }

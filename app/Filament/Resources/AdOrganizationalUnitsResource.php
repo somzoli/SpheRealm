@@ -19,7 +19,7 @@ class AdOrganizationalUnitsResource extends Resource
 
     protected static ?string $navigationIcon = 'fluentui-organization-12-o';
     protected static ?int $navigationSort = 2;
-    protected static ?string $navigationGroup = 'Domain Realm';
+    protected static ?string $navigationGroup = 'Domain';
 
     public static function form(Form $form): Form
     {
@@ -59,8 +59,8 @@ class AdOrganizationalUnitsResource extends Resource
     {
         return [
             'index' => Pages\ListAdOrganizationalUnits::route('/'),
-            'create' => Pages\CreateAdOrganizationalUnits::route('/create'),
-            'edit' => Pages\EditAdOrganizationalUnits::route('/{record}/edit'),
+            //'create' => Pages\CreateAdOrganizationalUnits::route('/create'),
+            //'edit' => Pages\EditAdOrganizationalUnits::route('/{record}/edit'),
         ];
     }
 }

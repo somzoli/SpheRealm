@@ -17,7 +17,9 @@ class SshKeysResource extends Resource
 {
     protected static ?string $model = SshKeys::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'solar-key-bold';
+    protected static ?int $navigationSort = 0;
+    protected static ?string $navigationGroup = 'Settings';
 
     public static function form(Form $form): Form
     {
