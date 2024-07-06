@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
 
 class SettingsResource extends Resource
 {
@@ -25,7 +26,18 @@ class SettingsResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make()
+                    ->description('Property')
+                    ->columns(1)
+                    ->schema([
+                    TextInput::make('label')
+                        ->label('Option')
+                        ->readonly()
+                        ->dehydrated(false),
+                    TextInput::make('value')
+                        ->label('Value')
+                        ->hint('Data for this option'),
+                ])->collapsible()->persistCollapsed(),
             ]);
     }
 
@@ -69,8 +81,13 @@ class SettingsResource extends Resource
     {
         return [
             'index' => Pages\ListSettings::route('/'),
-            'create' => Pages\CreateSettings::route('/create'),
-            'edit' => Pages\EditSettings::route('/{record}/edit'),
+            //'create' => Pages\CreateSettings::route('/create'),
+            //'edit' => Pages\EditSettings::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }
