@@ -33,7 +33,17 @@ class SettingsResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('label')
+                    ->label('Option')
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->color('warning')
+                    ->description(fn ($record): string => $record->description),
+                Tables\Columns\TextColumn::make('value')
+                    ->formatStateUsing(fn ($state) => $state === null ? 'Empty' : $state)
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
