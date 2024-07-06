@@ -50,7 +50,6 @@ class SettingsResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->color('warning')
                     ->description(fn ($record): string => $record->description),
                 Tables\Columns\TextColumn::make('value')
                     ->formatStateUsing(fn ($state) => $state === null ? 'Empty' : $state)
