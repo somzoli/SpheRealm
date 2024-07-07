@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->text('value')->nullable();
             // For ldap connection
-            $table->text('ldap_connection')->nullable();
+            /*$table->text('ldap_connection')->nullable();
             $table->text('ldap_host')->nullable();
             $table->text('ldap_username')->nullable();
             $table->text('ldap_password')->nullable();
             $table->text('ldap_basedn')->nullable();
             $table->text('ldap_ssl')->nullable();
-            $table->text('ldap_tls')->nullable();
+            $table->text('ldap_tls')->nullable();*/
             $table->timestamps();
         });
 
