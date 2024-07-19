@@ -26,9 +26,9 @@
 
 ## Test Commands
 - DB connection test
-```php artisan db:monitor ```
+``php artisan db:monitor ``
 - LDAP test
-```php artisan ldap:test ```
+``php artisan ldap:test ``
 
 ## License
 - The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
