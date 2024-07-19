@@ -28,6 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('')
             ->login(Loginoc::class)
+            ->brandName('SpheRealm')
+            ->brandLogo(asset('images/logo.svg'))
             ->colors([
                 'primary' => Color::Teal,
             ])
