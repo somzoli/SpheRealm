@@ -1,5 +1,5 @@
 # [SpheRealm]<br>
-![]<img src="images/spherealm.png" width="50%" height="50%">
+<img src="images/spherealm.png" width="50%" height="50%">
 
 # About SpheRealm
 ## Features
