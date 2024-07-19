@@ -75,17 +75,23 @@ class UsersResource extends Resource
                 ->icon('heroicon-o-user-plus')
                 ->modalIcon('heroicon-o-user-plus')
                 ->form([
-                    Forms\Components\TextInput::make('name')
-                    ->label('Username')
-                    ->unique(ignoreRecord: true),
-                    Forms\Components\TextInput::make('email')
-                    ->maxLength(255)
-                    ->email()
-                    ->unique(ignoreRecord: true),
-                    Forms\Components\TextInput::make('password')
-                    ->required()
-                    ->maxLength(255)
-                    ->password(),
+                    Forms\Components\Section::make()
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                        ->label('Username')
+                        ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('realname')
+                        ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('email')
+                        ->maxLength(255)
+                        ->email()
+                        ->unique(ignoreRecord: true),
+                        Forms\Components\TextInput::make('password')
+                        ->required()
+                        ->maxLength(255)
+                        ->password(),
+                    ])
                 ])
                 ->action(function ($data, $model) {
                     $user = $model::create($data);

@@ -63,7 +63,7 @@ class SshKeysPolicy
      */
     public function forceDelete(User $user, SshKeys $sshKeys): bool
     {
-        return $user->can('force_delete_ssh::keys');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class SshKeysPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_ssh::keys');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class SshKeysPolicy
      */
     public function restore(User $user, SshKeys $sshKeys): bool
     {
-        return $user->can('restore_ssh::keys');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class SshKeysPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_ssh::keys');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class SshKeysPolicy
      */
     public function replicate(User $user, SshKeys $sshKeys): bool
     {
-        return $user->can('replicate_ssh::keys');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class SshKeysPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_ssh::keys');
+        return $user->can('{{ Reorder }}');
     }
 }

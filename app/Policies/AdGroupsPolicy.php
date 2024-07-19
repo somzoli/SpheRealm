@@ -63,7 +63,7 @@ class AdGroupsPolicy
      */
     public function forceDelete(User $user, AdGroups $adGroups): bool
     {
-        return $user->can('force_delete_ad::groups');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class AdGroupsPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_ad::groups');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class AdGroupsPolicy
      */
     public function restore(User $user, AdGroups $adGroups): bool
     {
-        return $user->can('restore_ad::groups');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class AdGroupsPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_ad::groups');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class AdGroupsPolicy
      */
     public function replicate(User $user, AdGroups $adGroups): bool
     {
-        return $user->can('replicate_ad::groups');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class AdGroupsPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_ad::groups');
+        return $user->can('{{ Reorder }}');
     }
 }

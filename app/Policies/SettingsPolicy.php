@@ -63,7 +63,7 @@ class SettingsPolicy
      */
     public function forceDelete(User $user, Settings $settings): bool
     {
-        return $user->can('force_delete_settings');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class SettingsPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_settings');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class SettingsPolicy
      */
     public function restore(User $user, Settings $settings): bool
     {
-        return $user->can('restore_settings');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class SettingsPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_settings');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class SettingsPolicy
      */
     public function replicate(User $user, Settings $settings): bool
     {
-        return $user->can('replicate_settings');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class SettingsPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_settings');
+        return $user->can('{{ Reorder }}');
     }
 }

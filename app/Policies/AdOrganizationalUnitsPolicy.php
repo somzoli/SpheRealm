@@ -63,7 +63,7 @@ class AdOrganizationalUnitsPolicy
      */
     public function forceDelete(User $user, AdOrganizationalUnits $adOrganizationalUnits): bool
     {
-        return $user->can('force_delete_ad::organizational::units');
+        return $user->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class AdOrganizationalUnitsPolicy
      */
     public function forceDeleteAny(User $user): bool
     {
-        return $user->can('force_delete_any_ad::organizational::units');
+        return $user->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class AdOrganizationalUnitsPolicy
      */
     public function restore(User $user, AdOrganizationalUnits $adOrganizationalUnits): bool
     {
-        return $user->can('restore_ad::organizational::units');
+        return $user->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class AdOrganizationalUnitsPolicy
      */
     public function restoreAny(User $user): bool
     {
-        return $user->can('restore_any_ad::organizational::units');
+        return $user->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class AdOrganizationalUnitsPolicy
      */
     public function replicate(User $user, AdOrganizationalUnits $adOrganizationalUnits): bool
     {
-        return $user->can('replicate_ad::organizational::units');
+        return $user->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class AdOrganizationalUnitsPolicy
      */
     public function reorder(User $user): bool
     {
-        return $user->can('reorder_ad::organizational::units');
+        return $user->can('{{ Reorder }}');
     }
 }
