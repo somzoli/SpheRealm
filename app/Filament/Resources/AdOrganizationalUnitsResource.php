@@ -17,9 +17,9 @@ class AdOrganizationalUnitsResource extends Resource
 {
     protected static ?string $model = AdOrganizationalUnits::class;
 
-    protected static ?string $navigationIcon = 'fluentui-organization-12-o';
-    protected static ?int $navigationSort = 2;
+    protected static ?string $navigationIcon = 'heroicon-c-building-library';
     protected static ?string $navigationGroup = 'Domain';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -33,18 +33,30 @@ class AdOrganizationalUnitsResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->searchable()
+                ->sortable()
+                ->badge(),
+                Tables\Columns\TextColumn::make('distinguishedname')
+                ->searchable()
+                ->sortable()
+                ->copyable()
+                ->copyMessage('Copied')
+                ->copyMessageDuration(1500),
+                Tables\Columns\TextColumn::make('description')
+                ->searchable()
+                ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                //Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
+                /*Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ]),*/
             ]);
     }
 
@@ -59,8 +71,13 @@ class AdOrganizationalUnitsResource extends Resource
     {
         return [
             'index' => Pages\ListAdOrganizationalUnits::route('/'),
-            //'create' => Pages\CreateAdOrganizationalUnits::route('/create'),
-            //'edit' => Pages\EditAdOrganizationalUnits::route('/{record}/edit'),
+            //'create' => Pages\CreateAdOrgUnits::route('/create'),
+            //'edit' => Pages\EditAdOrgUnits::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }
