@@ -35,9 +35,11 @@
 - FilamentPHP: MIT License
 - Filament-shield: MIT License
 - LdapRecord: MIT License
+- Calebporzio/sushi: MIT License
 
 ## Sources
 - Laravel: https://laravel.com/
 - Filamentphp: https://filamentphp.com/
 - LdapRecord: https://ldaprecord.com/docs/laravel/v3
 - Filament-shield: https://github.com/bezhanSalleh/filament-shield
+- Calebporzio/sushi: https://github.com/calebporzio/sushi
