@@ -78,7 +78,7 @@ class AdUsersResource extends Resource
     {
         return $table
             ->recordClasses(fn ($record) => match ($record->active) {
-                'False' => 'opacity-50 border-l-2 !border-l-orange-600 !dark:border-l-orange-300',
+                'False' => 'opacity-60 border-l-2 !border-l-orange-600 !dark:border-l-orange-300',
                 'True' => 'border-l-2 !border-l-green-600 !dark:border-l-green-300',
                 default => null,
             })
