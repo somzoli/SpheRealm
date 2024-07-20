@@ -1,7 +1,8 @@
 # [SpheRealm]<br>
-<img src="images/spherealm1.png" width="50%" height="50%">
-<img src="images/spherealm2.png" width="50%" height="50%">
-<img src="images/spherealm3.png" width="50%" height="50%">
+<img src="images/spherealm.png" width="30%" height="30%">
+<img src="images/spherealm1.png" width="30%" height="30%">
+<img src="images/spherealm2.png" width="30%" height="30%">
+<img src="images/spherealm3.png" width="30%" height="30%">
 
 # About SpheRealm
 ## Features
