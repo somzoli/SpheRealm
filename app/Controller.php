@@ -10,7 +10,7 @@ class Controller
     public static function importUsers()
 	{
 		$admins = Models\Settings::where('option', 'ldap_admin_users')->first();
-		(empty($admins->value)) ? throw new Exception('Ldap admin value missing!') : null;
+		(empty($admins->value)) ? throw new Exception('Ldap Admin Group DN missing!') : null;
 		$members = (! empty(Group::find($admins->value))) ? Group::find($admins->value)->members()->get() : throw new Exception('Ldap Admin Group DN Wrong!');
 		$adminusers =  Models\User::get();
 		// Collect datas
