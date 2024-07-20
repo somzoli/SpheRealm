@@ -68,7 +68,7 @@ class AdUsers extends Model
     {
         ini_set('memory_limit', '1024M');
 		ini_set('max_execution_time', '3000');
-		$setting = Models\Settings::where('option', 'ldap_base')->first('value');
+		$setting = env('LDAP_BASE_DN');
         $until = new \DateTime('+2 hours');
         $users = User::in($setting->value)->cache($until)->get()->sortBy('name');
         foreach ($users as $user) {

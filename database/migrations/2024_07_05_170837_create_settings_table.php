@@ -29,34 +29,15 @@ return new class extends Migration
         });
 
         Settings::create([
-            'option' => 'ldap_connection',
-            'label' => 'Ldap Connection',
-            'description' => 'Ldap Server Connection',
-            'value' => null,
-        ]);
-
-        Settings::create([
             'option' => 'ldap_admin_users',
-            'label' => 'Ldap Admins Users Group',
+            'label' => 'Ldap Admins Users Group DN',
             'description' => 'Admin Users Group From LDAP/AD',
             'value' => null,
         ]);
         Settings::create([
-            'option' => 'ldap_organization_users',
-            'label' => 'Ldap Organization Users Group',
-            'description' => 'Employees from LDAP/AD',
-            'value' => null,
-        ]);
-        Settings::create([
             'option' => 'ldap_servers',
-            'label' => 'Ldap Servers Group',
+            'label' => 'Ldap Servers Group DN',
             'description' => 'Servers Group From LDAP/AD',
-            'value' => null,
-        ]);
-        Settings::create([
-            'option' => 'ldap_base',
-            'label' => 'Ldap Base DN',
-            'description' => 'Domain BaseDN for Active Directory Management',
             'value' => null,
         ]);
     }
