@@ -4,9 +4,9 @@
 # About SpheRealm
 ## Features
 - Active Directory Administration (read-only at now)
--- Users
--- Groups
--- Organizational Units
+    - Users
+    - Groups
+    - Organizational Units
 
 ## Dependencies
 - nodejs
