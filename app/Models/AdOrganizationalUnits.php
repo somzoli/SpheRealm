@@ -32,7 +32,13 @@ class AdOrganizationalUnits extends Model
             $oudata[] = [
                 'name' => $ou->getFirstAttribute('name'),
                 'distinguishedname' => $ou->getFirstAttribute('distinguishedname'),
-                'description' => $ou->getFirstAttribute('description')
+                'description' => $ou->getFirstAttribute('description'),
+                'whencreated' => $ou->getFirstAttribute('whencreated'),
+                'whenchanged' => $ou->getFirstAttribute('whenchanged'),
+                'showinadvancedviewonly' => $ou->getFirstAttribute('showinadvancedviewonly'),
+                'objectcategory' => $ou->getFirstAttribute('objectcategory'),
+                'iscriticalsystemobject' => $ou->getFirstAttribute('iscriticalsystemobject'),
+                'gplink' => $ou->getFirstAttribute('gplink'),
             ];
         }
         return !empty($oudata) ? $oudata : [];

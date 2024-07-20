@@ -41,9 +41,13 @@ class AdGroups extends Model
                 'distinguishedname' => $group->getFirstAttribute('distinguishedname'),
                 // More data for detailed view
                 'whencreated' => $group->getFirstAttribute('whencreated'),
+                'whenchanged' => $group->getFirstAttribute('whenchanged'),
                 'member' => !empty($group->member) ? nl2br(implode(",\n",$group->member)) : null,
                 'gidnumber' => $group->getFirstAttribute('gidnumber'),
-
+                'iscriticalsystemobject' => $group->getFirstAttribute('iscriticalsystemobject'),
+                'objectcategory' => $group->getFirstAttribute('objectcategory'),
+                'objectclass' => !empty($group->objectclass) ? nl2br(implode(",\n",$group->objectclass)) : null,
+                'samaccountname' => $group->getFirstAttribute('samaccountname'),
             ];
         }
         return !empty($groupdata) ? $groupdata : [];

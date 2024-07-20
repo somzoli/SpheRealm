@@ -12,6 +12,10 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Tabs;
 
 class AdOrganizationalUnitsResource extends Resource
 {
@@ -21,11 +25,30 @@ class AdOrganizationalUnitsResource extends Resource
     protected static ?string $navigationGroup = 'Domain';
     protected static ?int $navigationSort = 3;
 
-    public static function form(Form $form): Form
+    public static function infolist(Infolist $infolist): Infolist
     {
-        return $form
+        return $infolist
             ->schema([
-                //
+                Section::make('User data')
+                ->schema([
+                    Tabs::make('Tabs')
+                    ->tabs([
+                        Tabs\Tab::make('Basic Details')
+                        ->columns(3)
+                        ->icon('heroicon-o-document-magnifying-glass')
+                        ->schema([
+                            Infolists\Components\TextEntry::make('name'),
+                            Infolists\Components\TextEntry::make('distinguishedname'),
+                            Infolists\Components\TextEntry::make('description'),
+                            Infolists\Components\TextEntry::make('whencreated'),
+                            Infolists\Components\TextEntry::make('whenchanged'),
+                            Infolists\Components\TextEntry::make('showinadvancedviewonly'),
+                            Infolists\Components\TextEntry::make('objectcategory'),
+                            Infolists\Components\TextEntry::make('iscriticalsystemobject'),
+                            Infolists\Components\TextEntry::make('gplink')
+                        ]),
+                    ])
+                ])
             ]);
     }
 
@@ -52,6 +75,7 @@ class AdOrganizationalUnitsResource extends Resource
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
@@ -73,6 +97,7 @@ class AdOrganizationalUnitsResource extends Resource
             'index' => Pages\ListAdOrganizationalUnits::route('/'),
             //'create' => Pages\CreateAdOrgUnits::route('/create'),
             //'edit' => Pages\EditAdOrgUnits::route('/{record}/edit'),
+            'view' => Pages\ViewAdOrganizationalUnits::route('/{record}'),
         ];
     }
 

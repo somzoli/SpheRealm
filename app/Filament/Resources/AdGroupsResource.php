@@ -39,9 +39,15 @@ class AdGroupsResource extends Resource
                         ->icon('heroicon-o-document-magnifying-glass')
                         ->schema([
                             Infolists\Components\TextEntry::make('name'),
+                            Infolists\Components\TextEntry::make('samaccountname'),
                             Infolists\Components\TextEntry::make('mail'),
                             Infolists\Components\TextEntry::make('proxyaddresses'),
                             Infolists\Components\TextEntry::make('whencreated'),
+                            Infolists\Components\TextEntry::make('whenchanged'),
+                            Infolists\Components\TextEntry::make('iscriticalsystemobject'),
+                            Infolists\Components\TextEntry::make('objectcategory'),
+                            Infolists\Components\TextEntry::make('objectclass')
+                            ->html(),
                             Infolists\Components\TextEntry::make('gidnumber'),
                         ]),
                         Tabs\Tab::make('Members')
