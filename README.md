@@ -5,6 +5,9 @@
 
 # About SpheRealm
 ## Features
+- Local and LDAP user authentication
+- Role Management
+- Store SSH keys (feature soon...)
 - Active Directory Administration (read-only at now)
     - Users
     - Groups
