@@ -70,7 +70,7 @@ class AdUsers extends Model
 		ini_set('max_execution_time', '3000');
 		$setting = env('LDAP_BASE_DN');
         $until = new \DateTime('+2 hours');
-        $users = User::in($setting->value)->cache($until)->get()->sortBy('name');
+        $users = User::in($setting)->cache($until)->get()->sortBy('name');
         foreach ($users as $user) {
             // Store avatar
             $avatar = $user->getFirstAttribute('jpegphoto');

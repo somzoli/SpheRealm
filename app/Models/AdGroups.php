@@ -31,7 +31,7 @@ class AdGroups extends Model
         ini_set('memory_limit', '1024M');
 		ini_set('max_execution_time', '3000');
 		$setting = env('LDAP_BASE_DN');
-        $groups = Group::in($setting->value)->get()->sortBy('name');
+        $groups = Group::in($setting)->get()->sortBy('name');
         foreach ($groups as $group) {
             $groupdata[] = [
                 'name' => $group->getFirstAttribute('name'),

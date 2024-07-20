@@ -27,7 +27,7 @@ class AdOrganizationalUnits extends Model
     public function getRows()
     {
         $setting = env('LDAP_BASE_DN');
-        $ous = OrganizationalUnit::in($setting->value)->get()->sortBy('name');
+        $ous = OrganizationalUnit::in($setting)->get()->sortBy('name');
         foreach ($ous as $ou) {
             $oudata[] = [
                 'name' => $ou->getFirstAttribute('name'),
