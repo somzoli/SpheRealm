@@ -25,7 +25,6 @@
 - Create mysql database: create database spherealm;
 - Create mysql user: create user 'spherealm'@'localhost' identified by 'password';
 - Grant privileges: grant all privileges on spherealm.* to 'centraladmin'@'localhost';
-
 - Clone repository in your webserver root path: git clone URL
 - On Linux permissions: chown -R www-data:www-data /clonedfolder
 - Copy .env.example as .env: cp .env.example .env
