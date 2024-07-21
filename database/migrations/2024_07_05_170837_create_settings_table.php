@@ -37,7 +37,7 @@ return new class extends Migration
         Settings::create([
             'option' => 'ldap_servers',
             'label' => 'Ldap Servers Group DN',
-            'description' => 'Servers Group From LDAP/AD',
+            'description' => 'Computers Group From LDAP/AD',
             'value' => null,
         ]);
     }
