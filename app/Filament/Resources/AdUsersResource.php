@@ -83,6 +83,8 @@ class AdUsersResource extends Resource
                 default => null,
             })
             ->columns([
+                ImageColumn::make('jpegphoto')
+                ->circular(),
                 Tables\Columns\TextColumn::make('samaccountname')
                 ->searchable()
                 ->sortable()
@@ -117,9 +119,7 @@ class AdUsersResource extends Resource
                 ->wrap()
                 ->copyable()
                 ->copyMessage('Copied')
-                ->copyMessageDuration(1500),
-                ImageColumn::make('jpegphoto')
-                ->circular()
+                ->copyMessageDuration(1500)
             ])
             ->filters([
                 Filters\SelectFilter::make('active')
