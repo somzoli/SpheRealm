@@ -62,6 +62,7 @@ class AdminPanelProvider extends PanelProvider
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make()
             ])
             ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('16rem')
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->maxContentWidth(MaxWidth::Full)
             ;
