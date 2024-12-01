@@ -1,9 +1,9 @@
 # [SpheRealm]<br>
-<img src="images/spherealm_l.png" width="30%" height="30%">
-<img src="images/spherealm1.png" width="30%" height="30%">
-<img src="images/spherealm2.png" width="30%" height="30%">
-<img src="images/spherealm3.png" width="30%" height="30%">
-<img src="images/spherealm4.png" width="30%" height="30%">
+<img src="images/spherealm_l.png" width="10%" height="100%">
+<img src="images/spherealm1.png" width="100%" height="100%">
+<img src="images/spherealm2.png" width="100%" height="100%">
+<img src="images/spherealm3.png" width="100%" height="100%">
+<img src="images/spherealm4.png" width="100%" height="100%">
 
 # About SpheRealm
 ## Features
