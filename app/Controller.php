@@ -42,4 +42,27 @@ class Controller
 			);
 		}
 	}
+
+	public static function importServers()
+	{
+		// Set php limits for large datas
+		ini_set('memory_limit', '256M');
+		ini_set('max_execution_time', '300');
+		$servers = Models\Settings::where('option', 'ldap_servers')->first();
+		(empty($servers->value)) ? throw new Exception('Ldap server value missing!') : null;
+		$members = (! empty(Group::find($servers->value))) ? Group::find($servers->value)->members()->get() : throw new Exception('Ldap server value wrong!');
+		$servers =  Models\Client::get();
+		// Store & associate ip
+		foreach ($members as $member) {
+			$realname = (empty($member->displayname[0])) ? $member->name[0] : $member->displayname[0];
+			$ip = gethostbyname(preg_replace('/[^a-zA-Z0-9_-]/', '', $realname));
+			$server = Models\Client::updateOrCreate(
+				[
+					'name' => $realname,
+					'ip' => '$ip',
+
+				]
+			);
+		}
+	}
 }
