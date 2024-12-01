@@ -31,6 +31,7 @@
 - Copy .env.example as .env: cp .env.example .env
 - Edit .env properties: mysql,ldap sections
 - Init system: ./init.sh (Answer questions and check results)
+- Webserver webroot example: /var/www/SpheRealm/public
 
 ## Test Commands
 - DB connection test
