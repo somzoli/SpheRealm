@@ -78,7 +78,14 @@ class Controller
 					'ip' => $ip,
 					'type' => $type,
 					'description' => $description,
-					'port' => $port,
+					//'port' => $port,
+				],
+				[
+					'name' => $name,
+					'ip' => $ip,
+					'type' => $type,
+					'description' => $description,
+					//'port' => $port,
 				]
 			);
 		}

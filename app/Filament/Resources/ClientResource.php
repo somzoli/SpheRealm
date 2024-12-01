@@ -46,12 +46,12 @@ class ClientResource extends Resource
                     ]),
                     Forms\Components\TextInput::make('description')
                     ->label('Description'),
-                    Forms\Components\TextInput::make('port')
+                    /*Forms\Components\TextInput::make('port')
                     ->required()
                     ->numeric()
                     ->minValue(1)
                     ->maxValue(65535)
-                    ->label('Port'),
+                    ->label('Port'),*/
             ]);
     }
 
@@ -72,9 +72,9 @@ class ClientResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                 ->searchable()
                 ->sortable(),
-                Tables\Columns\TextColumn::make('port')
+                /*Tables\Columns\TextColumn::make('port')
                 ->searchable()
-                ->sortable(),
+                ->sortable(),*/
             ])
             ->filters([
                 //
@@ -104,12 +104,12 @@ class ClientResource extends Resource
                     ]),
                     Forms\Components\TextInput::make('description')
                     ->label('Description'),
-                    Forms\Components\TextInput::make('port')
+                    /*Forms\Components\TextInput::make('port')
                     ->required()
                     ->numeric()
                     ->minValue(1)
                     ->maxValue(65535)
-                    ->label('Port'),
+                    ->label('Port'),*/
                 ])
                 ->action(function ($data, $model) {
                     $client = $model::create($data);
