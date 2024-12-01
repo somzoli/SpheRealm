@@ -66,7 +66,7 @@ class ClientResource extends Resource
                 ->searchable()
                 ->sortable(),
                 Tables\Columns\TextColumn::make('type')
-                ->label('Licence')
+                ->label('Type')
                 ->searchable()
                 ->sortable(),
                 Tables\Columns\TextColumn::make('description')
@@ -148,6 +148,7 @@ class ClientResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

@@ -40,6 +40,12 @@ return new class extends Migration
             'description' => 'Computers Group From LDAP/AD',
             'value' => null,
         ]);
+        Settings::create([
+            'option' => 'dns_server',
+            'label' => 'DNS Server IP Address',
+            'description' => 'Primary DNS server for A,CNAME,PTR rekord checks',
+            'value' => null,
+        ]);
     }
 
     /**

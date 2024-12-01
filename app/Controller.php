@@ -4,6 +4,7 @@ namespace App;
 use App\Models;
 use Exception;
 use LdapRecord\Models\ActiveDirectory\Group;
+use Spatie\Dns\Dns;
 
 class Controller
 {
@@ -49,18 +50,35 @@ class Controller
 		ini_set('memory_limit', '256M');
 		ini_set('max_execution_time', '300');
 		$servers = Models\Settings::where('option', 'ldap_servers')->first();
-		(empty($servers->value)) ? throw new Exception('Ldap server value missing!') : null;
-		$members = (! empty(Group::find($servers->value))) ? Group::find($servers->value)->members()->get() : throw new Exception('Ldap server value wrong!');
+		$dns = Models\Settings::where('option', 'dns_server')->first();
+		(empty($servers->value)) ? throw new Exception('Ldap server option missing!') : null;
+		(empty($dns->value)) ? throw new Exception('DNS server option missing!') : null;
+		$members = (! empty(Group::find($servers->value))) ? Group::find($servers->value)->members()->get() : throw new Exception('Ldap server option wrong!');
 		$servers =  Models\Client::get();
 		// Store & associate ip
 		foreach ($members as $member) {
-			$realname = (empty($member->displayname[0])) ? $member->name[0] : $member->displayname[0];
-			$ip = gethostbyname(preg_replace('/[^a-zA-Z0-9_-]/', '', $realname));
+			$name = (!empty($member->name[0])) ? $member->name[0] : 'Unknown';
+			$full_dns = (!empty($member->dnshostname[0])) ? $member->dnshostname[0] : 'Unknown';
+			$type_def = (!empty($member->operatingsystem[0])) ? strtolower($member->operatingsystem[0]) : 'Unknown';
+			$description = (!empty($member->distinguishedname[0])) ? $member->distinguishedname[0] : 'Unknown';		
+			$ip = (new Dns)->useNameserver($dns->value)->getRecords($full_dns, 'A')[0]->ip();
+			if (str_contains($type_def, 'windows')) {
+				$type = 'windows';
+				$port = '3389';
+			} elseif (str_contains($type_def, 'linux')) {
+				$type = 'linux';
+				$port = '22';
+			} else {
+				$type = 'Unknown';
+				$port = 'Unknown';
+			}
 			$server = Models\Client::updateOrCreate(
 				[
-					'name' => $realname,
-					'ip' => '$ip',
-					
+					'name' => $name,
+					'ip' => $ip,
+					'type' => $type,
+					'description' => $description,
+					'port' => $port,
 				]
 			);
 		}
