@@ -74,10 +74,10 @@ class AdUsers extends Model
         foreach ($users as $user) {
             // Store avatar
             $avatar = (! empty($user->getFirstAttribute('jpegphoto'))) ? $user->getFirstAttribute('jpegphoto') : $user->getFirstAttribute('thumbnailPhoto');
-            $avatar_exist = !empty($avatar) ? Storage::disk('public')->exists('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
-            $avatar_local = $avatar_exist ? Storage::disk('public')->get('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
-            $avatar != $avatar_local ? Storage::disk('public')->put('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg', $avatar) : null;
-            $imageurl = $avatar_exist ? Storage::disk('public')->url('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
+            $avatar_exist = !empty($avatar) ? Storage::disk('public')->exists('storage/avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
+            $avatar_local = $avatar_exist ? Storage::disk('public')->get('storage/avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
+            $avatar != $avatar_local ? Storage::disk('public')->put('storage/avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg', $avatar) : null;
+            $imageurl = $avatar_exist ? Storage::disk('public')->url('storage/avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
             $data[] = [
                 'active' => self::getLocked($user->getFirstAttribute('distinguishedname')),
                 'name' => $user->getFirstAttribute('name'),
