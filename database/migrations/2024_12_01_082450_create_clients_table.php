@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ip')->unique();
             $table->string('type')->default('linux');
             $table->string('description')->nullable();
-            $table->string('port');
+            //$table->string('port')->default('22');
             $table->foreignIdFor(Models\SshKeys::class)->nullable();
         });
     }
