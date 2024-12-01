@@ -45,6 +45,7 @@ class AdGroupsResource extends Resource
                             Infolists\Components\TextEntry::make('whencreated'),
                             Infolists\Components\TextEntry::make('whenchanged'),
                             Infolists\Components\TextEntry::make('iscriticalsystemobject'),
+                            Infolists\Components\TextEntry::make('distinguishedname'),
                             Infolists\Components\TextEntry::make('objectcategory'),
                             Infolists\Components\TextEntry::make('objectclass')
                             ->html(),

@@ -54,6 +54,7 @@ class AdUsersResource extends Resource
                             Infolists\Components\TextEntry::make('lastlogon'),
                             Infolists\Components\TextEntry::make('accountexpires'),
                             Infolists\Components\TextEntry::make('userprincipalname'),
+                            Infolists\Components\TextEntry::make('distinguishedname'),
                             Infolists\Components\TextEntry::make('uidnumber'),
                             Infolists\Components\TextEntry::make('whenchanged'),
                             Infolists\Components\TextEntry::make('badpwdcount'),
