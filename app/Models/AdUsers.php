@@ -73,7 +73,7 @@ class AdUsers extends Model
         $users = User::in($setting)->cache($until)->get()->sortBy('name');
         foreach ($users as $user) {
             // Store avatar
-            $avatar = $user->getFirstAttribute('jpegphoto');
+            $avatar = (! empty($user->getFirstAttribute('jpegphoto'))) ? $user->getFirstAttribute('jpegphoto') : $user->getFirstAttribute('thumbnailPhoto');
             $avatar_exist = !empty($avatar) ? Storage::disk('public')->exists('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
             $avatar_local = $avatar_exist ? Storage::disk('public')->get('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg') : null;
             $avatar != $avatar_local ? Storage::disk('public')->put('avatars/'.$user->getFirstAttribute('samaccountname').'.jpeg', $avatar) : null;
