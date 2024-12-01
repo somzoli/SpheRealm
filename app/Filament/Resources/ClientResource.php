@@ -27,7 +27,31 @@ class ClientResource extends Resource
     {
         return $form
             ->schema([
-                
+                Forms\Components\TextInput::make('name')
+                    ->unique(ignoreRecord: true)
+                    ->required()
+                    ->label('Client Name'),
+                    Forms\Components\TextInput::make('ip')
+                    ->unique(ignoreRecord: true)
+                    ->required()
+                    ->ipv4()
+                    ->label('IP address'),
+                    Forms\Components\Select::make('type')
+                    ->required()
+                    ->label('Type')
+                    ->options([
+                        'linux' => 'Linux',
+                        'windows' => 'Windows',
+                        'macos' => 'MacOs',
+                    ]),
+                    Forms\Components\TextInput::make('description')
+                    ->label('Description'),
+                    Forms\Components\TextInput::make('port')
+                    ->required()
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(65535)
+                    ->label('Port'),
             ]);
     }
 
