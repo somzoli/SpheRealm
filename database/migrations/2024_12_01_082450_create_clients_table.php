@@ -17,9 +17,9 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name')->unique();
             $table->string('ip')->unique();
-            $table->string('type')->unique();
+            $table->string('type')->default('linux');
             $table->string('description')->nullable();
-            $table->string('port')->unique();
+            $table->string('port');
             $table->foreignIdFor(Models\SshKeys::class)->nullable();
         });
     }
