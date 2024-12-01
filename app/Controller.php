@@ -60,7 +60,7 @@ class Controller
 				[
 					'name' => $realname,
 					'ip' => '$ip',
-
+					
 				]
 			);
 		}

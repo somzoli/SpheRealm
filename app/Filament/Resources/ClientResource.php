@@ -27,22 +27,7 @@ class ClientResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                ->label('Client Name'),
-                Forms\Components\TextInput::make('ip')
-                ->ipv4()
-                ->label('IP address'),
-                Forms\Components\Select::make('type')
-                ->label('Type')
-                ->options([
-                    'linux' => 'Linux',
-                    'windows' => 'Windows',
-                    'macos' => 'MacOs',
-                ]),
-                Forms\Components\TextInput::make('description')
-                ->label('Description'),
-                Forms\Components\TextInput::make('port')
-                ->label('Port'),
+                
             ]);
     }
 
@@ -50,7 +35,22 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                ->searchable()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('ip')
+                ->searchable()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                ->label('Licence')
+                ->searchable()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('description')
+                ->searchable()
+                ->sortable(),
+                Tables\Columns\TextColumn::make('port')
+                ->searchable()
+                ->sortable(),
             ])
             ->filters([
                 //
@@ -62,11 +62,15 @@ class ClientResource extends Resource
                 ->modalIcon('heroicon-o-user-plus')
                 ->form([
                     Forms\Components\TextInput::make('name')
+                    ->unique(ignoreRecord: true)
+                    ->required()
                     ->label('Client Name'),
                     Forms\Components\TextInput::make('ip')
+                    ->required()
                     ->ipv4()
                     ->label('IP address'),
                     Forms\Components\Select::make('type')
+                    ->required()
                     ->label('Type')
                     ->options([
                         'linux' => 'Linux',
@@ -76,6 +80,10 @@ class ClientResource extends Resource
                     Forms\Components\TextInput::make('description')
                     ->label('Description'),
                     Forms\Components\TextInput::make('port')
+                    ->required()
+                    ->numeric()
+                    ->minValue(1)
+                    ->maxValue(65535)
                     ->label('Port'),
                 ])
                 ->action(function ($data, $model) {
@@ -135,7 +143,7 @@ class ClientResource extends Resource
         return [
             'index' => Pages\ListClients::route('/'),
             'create' => Pages\CreateClient::route('/create'),
-            'edit' => Pages\EditClient::route('/{record}/edit'),
+            //'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
     }
     public static function canCreate(): bool
