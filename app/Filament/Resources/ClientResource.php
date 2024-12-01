@@ -66,6 +66,7 @@ class ClientResource extends Resource
                     ->required()
                     ->label('Client Name'),
                     Forms\Components\TextInput::make('ip')
+                    ->unique(ignoreRecord: true)
                     ->required()
                     ->ipv4()
                     ->label('IP address'),
