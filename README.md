@@ -32,7 +32,7 @@
 - Clone repository in your webserver root path: git clone URL
 - On Linux permissions: chown -R www-data:www-data /clonedfolder
 - Copy .env.example as .env: cp .env.example .env
-- Edit .env properties: mysql,ldap sections
+- Edit .env properties: mysql,ldap sections, app url
 - Init system: ./init.sh (Answer questions and check results)
 - Webserver webroot example: /var/www/SpheRealm/public
 
