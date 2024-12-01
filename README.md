@@ -3,16 +3,19 @@
 <img src="images/spherealm1.png" width="30%" height="30%">
 <img src="images/spherealm2.png" width="30%" height="30%">
 <img src="images/spherealm3.png" width="30%" height="30%">
+<img src="images/spherealm4.png" width="30%" height="30%">
 
 # About SpheRealm
 ## Features
 - Local and LDAP user authentication
 - Role Management
 - Store SSH keys (feature soon...)
+- Remote connection to clients (feature soon...)
 - Active Directory Administration (read-only at now)
     - Users
     - Groups
     - Organizational Units
+    - Domain Computers
 
 ## Dependencies
 - nodejs
