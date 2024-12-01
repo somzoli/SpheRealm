@@ -41,6 +41,7 @@ class AdUsersResource extends Resource
                         ->icon('heroicon-o-document-magnifying-glass')
                         ->schema([
                             Infolists\Components\ImageEntry::make('jpegphoto')
+                                ->label('Photo')
                                 ->height(100)
                                 ->circular()
                                 ->checkFileExistence(false)
@@ -85,6 +86,7 @@ class AdUsersResource extends Resource
             })
             ->columns([
                 ImageColumn::make('jpegphoto')
+                ->label('Photo')
                 ->circular(),
                 Tables\Columns\TextColumn::make('samaccountname')
                 ->searchable()
