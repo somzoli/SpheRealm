@@ -12,7 +12,7 @@ class Controller
 	{
 		$admins = Models\Settings::where('option', 'ldap_admin_users')->first();
 		(empty($admins->value)) ? throw new Exception('Ldap Admin Group DN missing!') : null;
-		$members = (! empty(Group::find($admins->value))) ? Group::find($admins->value)->members()->get() : throw new Exception('Ldap Admin Group DN Wrong!');
+		$members = (! empty(Group::find($admins->value))) ? Group::find($admins->value)->members()->recursive()->get() : throw new Exception('Ldap Admin Group DN Wrong!');
 		$adminusers =  Models\User::get();
 		// Collect datas
 		foreach ($members as $member) {
@@ -27,6 +27,9 @@ class Controller
 		}
 		// Store
 		foreach ($members as $member) {
+			if (!empty($member->objectclass) && !in_array('user', $member->objectclass)) {
+				continue;
+			}
 			$realname = (empty($member->displayname[0])) ? $member->name[0] : $member->displayname[0];
 			$email = (! empty($member->mail[0])) ? $member->mail[0] : null;
 			$objectguid = (! empty($member->getConvertedGuid())) ? $member->getConvertedGuid() : null;

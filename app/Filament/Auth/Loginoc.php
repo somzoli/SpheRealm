@@ -4,6 +4,8 @@ use Filament\Forms\Form;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Component;
 use Filament\Pages\Auth\Login as BaseAuth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class Loginoc extends BaseAuth
 {
