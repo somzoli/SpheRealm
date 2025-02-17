@@ -56,9 +56,8 @@ class User extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool
     {
-        //dd($this->getAllPermissions());
-        return ($this->hasRole('super_admin')) ? true : $this->hasRole('panel_user');
-        //str_ends_with($this->email, '@');
+        //return ($this->hasRole('super_admin')) ? true : $this->hasRole('panel_user');
+        return true;
     }
     public function getFilamentName(): string
     {
