@@ -71,7 +71,10 @@ class SshKeysResource extends Resource
                 ->sortable(),
                 Tables\Columns\TextColumn::make('username')
                 ->searchable()
-                ->sortable(),
+                ->sortable()
+                ->copyable()
+                ->copyMessage('Data copied')
+                ->copyMessageDuration(1500),
                 Tables\Columns\TextColumn::make('description')
                 ->searchable()
                 ->sortable(),
@@ -91,6 +94,10 @@ class SshKeysResource extends Resource
                 ->copyable()
                 ->copyMessage('Data copied')
                 ->copyMessageDuration(1500),
+            ])
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
             ])
             ->filters([
                 //
