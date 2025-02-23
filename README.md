@@ -27,7 +27,6 @@
 - With self signed ldap cert: ldap.conf -> 'TLS_REQCERT never' 
   - MacOs: /usr/local/etc/openldap/ldap.conf
   - Linux: /etc/ldap/ldap.conf or /etc/openldap/ldap.conf
-  - Windows: C:\OpenLDAP\sysconf\ldap.conf
 
 ## Install
 - Create database: create database spherealm;
