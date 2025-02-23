@@ -18,6 +18,7 @@
     - Domain Computers
 
 ## Dependencies
+- OS: Linux
 - nodejs
 - npm
 - php8.3+ (ldap, mysql, pgsql, cli, common, curl, fpm, intl, mbstring, opcache, readline, xml, xmlrpc, zip, readline, opcache, apcu, sqlite3)
