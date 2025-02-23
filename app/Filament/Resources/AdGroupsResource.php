@@ -24,7 +24,7 @@ class AdGroupsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Domain';
-    protected static ?int $navigationSort = 0;
+    protected static ?int $navigationSort = 1;
     protected static ?string $navigationLabel = 'Groups';
 
     public static function infolist(Infolist $infolist): Infolist
