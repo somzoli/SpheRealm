@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\Layout\Stack;
 
 class SettingsResource extends Resource
 {
@@ -45,6 +46,7 @@ class SettingsResource extends Resource
     {
         return $table
             ->columns([
+                Stack::make([
                 Tables\Columns\TextColumn::make('label')
                     ->label('Option')
                     ->sortable()
@@ -55,6 +57,11 @@ class SettingsResource extends Resource
                     ->formatStateUsing(fn ($state) => $state === null ? 'Empty' : $state)
                     ->sortable()
                     ->searchable(),
+                ]),
+            ])
+            ->contentGrid([
+                'md' => 2,
+                'xl' => 3,
             ])
             ->filters([
                 //
@@ -64,7 +71,7 @@ class SettingsResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                 //   Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
