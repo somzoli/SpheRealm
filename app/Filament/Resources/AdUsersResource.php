@@ -27,6 +27,7 @@ class AdUsersResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationGroup = 'Domain';
     protected static ?int $navigationSort = 0;
+    protected static ?string $navigationLabel = 'Accounts';
 
     public static function infolist(Infolist $infolist): Infolist
     {

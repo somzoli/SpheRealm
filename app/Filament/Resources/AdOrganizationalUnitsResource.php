@@ -24,6 +24,7 @@ class AdOrganizationalUnitsResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-c-building-library';
     protected static ?string $navigationGroup = 'Domain';
     protected static ?int $navigationSort = 3;
+    protected static ?string $navigationLabel = 'Org Units';
 
     public static function infolist(Infolist $infolist): Infolist
     {

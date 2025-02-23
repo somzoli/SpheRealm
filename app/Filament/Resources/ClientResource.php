@@ -22,6 +22,7 @@ class ClientResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-s-computer-desktop';
     protected static ?string $navigationGroup = 'Domain';
     protected static ?int $navigationSort = 0;
+    protected static ?string $navigationLabel = 'Computers';
 
     public static function form(Form $form): Form
     {
