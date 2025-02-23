@@ -47,16 +47,16 @@ class SettingsResource extends Resource
         return $table
             ->columns([
                 Stack::make([
-                Tables\Columns\TextColumn::make('label')
-                    ->label('Option')
-                    ->sortable()
-                    ->searchable()
-                    ->badge()
-                    ->description(fn ($record): string => $record->description),
-                Tables\Columns\TextColumn::make('value')
-                    ->formatStateUsing(fn ($state) => $state === null ? 'Empty' : $state)
-                    ->sortable()
-                    ->searchable(),
+                    Tables\Columns\TextColumn::make('label')
+                        ->label('Option')
+                        ->sortable()
+                        ->searchable()
+                        ->badge()
+                        ->description(fn ($record): string => $record->description),
+                    Tables\Columns\TextColumn::make('value')
+                        ->formatStateUsing(fn ($state) => $state === null ? 'Empty' : $state)
+                        ->sortable()
+                        ->searchable(),
                 ]),
             ])
             ->contentGrid([
