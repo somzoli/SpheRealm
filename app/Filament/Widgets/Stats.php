@@ -17,12 +17,14 @@ class Stats extends BaseWidget
         $adusers = Models\AdUsers::query()->count();
         $adgroups = Models\AdGroups::query()->count();
         $adous = Models\AdOrganizationalUnits::query()->count();
+        $computers = Models\Client::query()->count();
 
         return [
             Stat::make('Number Of Local Users', $users),
             Stat::make('Number Of AD groups', $adgroups),
             Stat::make('Number Of AD users', $adusers),
             Stat::make('Number Of AD Organizational Units', $adous),
+            Stat::make('Number Of AD Computers', $adous),
         ];
     }
 }

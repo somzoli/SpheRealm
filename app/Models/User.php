@@ -15,7 +15,10 @@ use Spatie\Permission\Models\Role;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasRoles;
+    use HasFactory, Notifiable, HasRoles, AuthenticatesWithLdap, HasPanelShield;
+
+    protected $guard_name = "web";
+    protected function getDefaultGuardName(): string { return 'web'; }
 
     /**
      * The attributes that are mass assignable.
@@ -35,6 +38,7 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'realname',
         'email',
         'password',
         'guid',

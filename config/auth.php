@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'ldap',
         ],
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'ldap',
+        ],
     ],
 
     /*

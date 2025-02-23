@@ -36,8 +36,13 @@ class Loginoc extends BaseAuth
         $login_type = filter_var($data['login'], FILTER_VALIDATE_EMAIL ) ? 'email' : 'name';
  
         return [
-            $login_type => $data['login'],
+            //$login_type => $data['login'],
+            'samaccountname' => $data['login'],
             'password'  => $data['password'],
+            'fallback' => [
+                $login_type => $data['login'],
+                'password' => $data['password'],
+            ],
         ];
     }
 
