@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AdUsersResource\Pages;
 use App\Filament\Resources\AdUsersResource\RelationManagers;
 use App\Models\AdUsers;
+use App\Models\AdGroups;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -19,6 +20,7 @@ use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Tabs;
+use Filament\Notifications\Notification;
 
 class AdUsersResource extends Resource
 {
@@ -132,6 +134,53 @@ class AdUsersResource extends Resource
                     'False' => 'Disabled',
                 ])->attribute('active')
                 ->label('Active Status'),
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('Create')
+                ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
+                ->icon('heroicon-o-user-plus')
+                ->modalIcon('heroicon-o-user-plus')
+                ->form([
+                    Forms\Components\TextInput::make('username')
+                    ->maxLength(50)
+                    ->required(),
+                    Forms\Components\TextInput::make('name')
+                    ->maxLength(50)
+                    ->required(),
+                    Forms\Components\TextInput::make('email')
+                    ->maxLength(255)
+                    ->email()
+                    ->required(),
+                    Forms\Components\TextInput::make('description')
+                    ->maxLength(255),
+                    Forms\Components\TextInput::make('password')
+                    ->required()
+                    ->maxLength(255)
+                    ->password(),
+                    Forms\Components\Select::make('groups')
+                    ->options(AdGroups::allGroups())
+                    ->multiple()
+                    ->preload()
+                    ->searchable()
+                ])->action(function ($data) {
+                    try {
+                        AdUsers::createUser($data);
+                        Notification::make()
+                            ->title('Created')
+                            ->icon('heroicon-m-check-circle')
+                            ->success()
+                            ->send();
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->title('Create Process Failed')
+                            ->icon('heroicon-o-exclamation-triangle')
+                            ->body($e->getMessage())
+                            ->persistent()
+                            ->danger()
+                            ->send();
+                    }
+                    
+                }),
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),

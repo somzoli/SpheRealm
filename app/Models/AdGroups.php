@@ -3,6 +3,7 @@
 namespace App\Models;
 use App\Models;
 use LdapRecord\Models\ActiveDirectory\Group;
+use LdapRecord\Models\ActiveDirectory\User;
 
 //use LdapRecord\Models\Model;
 use Illuminate\Database\Eloquent\Model;
@@ -51,5 +52,24 @@ class AdGroups extends Model
             ];
         }
         return !empty($groupdata) ? $groupdata : [];
+    }
+
+    public static function allGroups()
+    {
+        $setting = env('LDAP_BASE_DN');
+        $until = new \DateTime('+2 hours');
+        $groups = Group::in($setting)->cache($until)->get()->sortBy('name');
+        foreach ($groups as $group) {
+            $result[] = 
+                $group->getFirstAttribute('distinguishedname');
+        }
+        return !empty($result) ? $result : [];
+    }
+
+    public function members(): HasMany
+    {
+        return $this->hasMany([
+            Group::class, User::class, Contact::class
+        ], 'memberof')->using($this, 'member');
     }
 }

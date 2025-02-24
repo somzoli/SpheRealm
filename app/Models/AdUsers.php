@@ -6,6 +6,7 @@ use App\Models;
 //use LdapRecord\Models\Model;
 use Illuminate\Database\Eloquent\Model;
 use LdapRecord\Models\ActiveDirectory\User;
+use LdapRecord\Models\ActiveDirectory\Group;
 use LdapRecord\Models\Attributes\AccountControl;
 use Illuminate\Support\Facades\Storage;
 use LdapRecord\Models\Attributes\Timestamp;
@@ -101,5 +102,36 @@ class AdUsers extends Model
         }
         return !empty($data) ? $data : [];
     }
-    
+
+    public static function createUser($data)
+    {
+        
+        $setting = env('LDAP_BASE_DN');
+        $user = (new User)->inside($setting);
+        $user->cn = $data['name'];
+        $user->unicodePwd = $data['password'];
+        $user->samaccountname = $data['username'];
+        $user->mail = $data['email'];
+        $user->description = !empty($data['description']) ? $data['description'] : null;
+        $user->save();
+        // Sync the created users attributes.
+        $user->refresh();
+        // Enable the user.
+        $user->userAccountControl = 512;
+        try {
+            $user->save();
+            if (!empty($data['groups'])) {
+                foreach ($data['groups'] as $group) {
+                    $grp = Group::findOrFail($group);
+                    $user->groups()->attach($grp);
+                }
+            }
+        } catch (\LdapRecord\LdapRecordException $e) {
+            return 'Failed to create User.'.$e;
+        }
+    }
+    public function groups(): HasMany
+    {
+        return $this->hasMany(Group::class, 'member');
+    }
 }

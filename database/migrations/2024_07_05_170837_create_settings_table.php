@@ -30,7 +30,7 @@ return new class extends Migration
 
         Settings::create([
             'option' => 'ldap_admin_users',
-            'label' => 'Ldap Admins Users Group DN',
+            'label' => 'Ldap Admin Users Group DN',
             'description' => 'Admin Users Group From LDAP/AD',
             'value' => null,
         ]);
