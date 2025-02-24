@@ -105,7 +105,6 @@ class AdUsers extends Model
 
     public static function createUser($data)
     {
-        
         $setting = env('LDAP_BASE_DN');
         $user = (new User)->inside($setting);
         $user->cn = $data['name'];

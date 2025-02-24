@@ -60,7 +60,7 @@ class AdGroups extends Model
         $until = new \DateTime('+2 hours');
         $groups = Group::in($setting)->cache($until)->get()->sortBy('name');
         foreach ($groups as $group) {
-            $result[] = 
+            $result[$group->getFirstAttribute('distinguishedname')] = 
                 $group->getFirstAttribute('distinguishedname');
         }
         return !empty($result) ? $result : [];
