@@ -87,33 +87,26 @@ class AdUsersResource extends Resource
         return $form
             ->schema([
                 FormSection::make([
-                    Forms\Components\TextInput::make('username')
-                    ->maxLength(50)
-                    ->required(),
+                    Forms\Components\TextInput::make('samaccountname')
+                    ->label('Username')
+                    ->maxLength(50),
                     Forms\Components\TextInput::make('name')
-                    ->maxLength(50)
-                    ->required(),
-                    Forms\Components\TextInput::make('email')
+                    ->maxLength(50),
+                    Forms\Components\TextInput::make('mail')
+                    ->label('Email')
                     ->maxLength(255)
-                    ->email()
-                    ->required(),
+                    ->email(),
                     Forms\Components\TextInput::make('description')
                     ->maxLength(255),
-                    Forms\Components\TextInput::make('password')
-                    ->required()
-                    ->maxLength(255)
-                    ->password(),
                 ])->columns(2),
                 FormSection::make([
                     Forms\Components\Select::make('InGroups')
                     ->options(AdGroups::allGroups())
                     ->multiple()
-                    ->required()
                     ->preload()
                     ->searchable(),
                     Forms\Components\Select::make('InOrgUnit')
                     ->options(AdOrganizationalUnits::allOus())
-                    ->required()
                     ->preload()
                     ->searchable()
                 ])->columns(2),
@@ -234,10 +227,10 @@ class AdUsersResource extends Resource
                 }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
+                /*Tables\Actions\EditAction::make()
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
                 ->icon('heroicon-o-pencil')
-                ->modalIcon('heroicon-o-pencil-square'),
+                ->modalIcon('heroicon-o-pencil-square'),*/
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
