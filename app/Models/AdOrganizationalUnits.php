@@ -43,4 +43,15 @@ class AdOrganizationalUnits extends Model
         }
         return !empty($oudata) ? $oudata : [];
     }
+    public static function allOus()
+    {
+        $setting = env('LDAP_BASE_DN');
+        $until = new \DateTime('+2 hours');
+        $ous = OrganizationalUnit::in($setting)->cache($until)->get()->sortBy('name');
+        foreach ($ous as $ou) {
+            $result[$ou->getFirstAttribute('distinguishedname')] = 
+                $ou->getFirstAttribute('distinguishedname');
+        }
+        return !empty($result) ? $result : [];
+    }
 }

@@ -6,6 +6,7 @@ use App\Filament\Resources\AdUsersResource\Pages;
 use App\Filament\Resources\AdUsersResource\RelationManagers;
 use App\Models\AdUsers;
 use App\Models\AdGroups;
+use App\Models\AdOrganizationalUnits;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -21,6 +22,8 @@ use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Tabs;
 use Filament\Notifications\Notification;
+use Filament\Forms\Components\Section as FormSection;
+use Filament\Forms\Components\Split;
 
 class AdUsersResource extends Resource
 {
@@ -141,27 +144,37 @@ class AdUsersResource extends Resource
                 ->icon('heroicon-o-user-plus')
                 ->modalIcon('heroicon-o-user-plus')
                 ->form([
-                    Forms\Components\TextInput::make('username')
-                    ->maxLength(50)
-                    ->required(),
-                    Forms\Components\TextInput::make('name')
-                    ->maxLength(50)
-                    ->required(),
-                    Forms\Components\TextInput::make('email')
-                    ->maxLength(255)
-                    ->email()
-                    ->required(),
-                    Forms\Components\TextInput::make('description')
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('password')
-                    ->required()
-                    ->maxLength(255)
-                    ->password(),
-                    Forms\Components\Select::make('groups')
-                    ->options(AdGroups::allGroups())
-                    ->multiple()
-                    ->preload()
-                    ->searchable()
+                    FormSection::make([
+                        Forms\Components\TextInput::make('username')
+                        ->maxLength(50)
+                        ->required(),
+                        Forms\Components\TextInput::make('name')
+                        ->maxLength(50)
+                        ->required(),
+                        Forms\Components\TextInput::make('email')
+                        ->maxLength(255)
+                        ->email()
+                        ->required(),
+                        Forms\Components\TextInput::make('description')
+                        ->maxLength(255),
+                        Forms\Components\TextInput::make('password')
+                        ->required()
+                        ->maxLength(255)
+                        ->password(),
+                    ])->columns(2),
+                    FormSection::make([
+                        Forms\Components\Select::make('InGroups')
+                        ->options(AdGroups::allGroups())
+                        ->multiple()
+                        ->required()
+                        ->preload()
+                        ->searchable(),
+                        Forms\Components\Select::make('InOrgUnit')
+                        ->options(AdOrganizationalUnits::allOus())
+                        ->required()
+                        ->preload()
+                        ->searchable()
+                    ])->columns(2),
                 ])->action(function ($data) {
                     try {
                         AdUsers::createUser($data);

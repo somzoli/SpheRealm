@@ -105,7 +105,7 @@ class AdUsers extends Model
 
     public static function createUser($data)
     {
-        $setting = env('LDAP_BASE_DN');
+        !empty($data['InOrgUnit']) ? $setting =  $data['InOrgUnit'] : $setting = env('LDAP_BASE_DN');
         $user = (new User)->inside($setting);
         $user->cn = $data['name'];
         $user->unicodePwd = $data['password'];
@@ -119,8 +119,8 @@ class AdUsers extends Model
         $user->userAccountControl = 512;
         try {
             $user->save();
-            if (!empty($data['groups'])) {
-                foreach ($data['groups'] as $group) {
+            if (!empty($data['InGroups'])) {
+                foreach ($data['InGroups'] as $group) {
                     $grp = Group::findOrFail($group);
                     $user->groups()->attach($grp);
                 }
