@@ -82,6 +82,44 @@ class AdUsersResource extends Resource
             ]);
     }
 
+    public static function  form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                FormSection::make([
+                    Forms\Components\TextInput::make('username')
+                    ->maxLength(50)
+                    ->required(),
+                    Forms\Components\TextInput::make('name')
+                    ->maxLength(50)
+                    ->required(),
+                    Forms\Components\TextInput::make('email')
+                    ->maxLength(255)
+                    ->email()
+                    ->required(),
+                    Forms\Components\TextInput::make('description')
+                    ->maxLength(255),
+                    Forms\Components\TextInput::make('password')
+                    ->required()
+                    ->maxLength(255)
+                    ->password(),
+                ])->columns(2),
+                FormSection::make([
+                    Forms\Components\Select::make('InGroups')
+                    ->options(AdGroups::allGroups())
+                    ->multiple()
+                    ->required()
+                    ->preload()
+                    ->searchable(),
+                    Forms\Components\Select::make('InOrgUnit')
+                    ->options(AdOrganizationalUnits::allOus())
+                    ->required()
+                    ->preload()
+                    ->searchable()
+                ])->columns(2),
+            ]);
+    }
+
     public static function table(Table $table): Table
     {
         return $table
@@ -196,7 +234,10 @@ class AdUsersResource extends Resource
                 }),
             ])
             ->actions([
-                //Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
+                ->icon('heroicon-o-pencil')
+                ->modalIcon('heroicon-o-pencil-square'),
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
