@@ -11,6 +11,8 @@ class Stats extends BaseWidget
 {
     use HasWidgetShield;
     
+    protected ?string $heading = 'Statistics';
+
     protected function getStats(): array
     {
         $users = Models\User::query()->count();
@@ -18,6 +20,7 @@ class Stats extends BaseWidget
         $adgroups = Models\AdGroups::query()->count();
         $adous = Models\AdOrganizationalUnits::query()->count();
         $computers = Models\Client::query()->count();
+        $sshkeys = Models\SshKeys::query()->count();
 
         return [
             Stat::make('Number Of Local Users', $users),
@@ -25,6 +28,7 @@ class Stats extends BaseWidget
             Stat::make('Number Of AD users', $adusers),
             Stat::make('Number Of AD Organizational Units', $adous),
             Stat::make('Number Of AD Computers', $adous),
+            Stat::make('Number Of SSH keys', $sshkeys),
         ];
     }
 }
