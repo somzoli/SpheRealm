@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AdGroupsResource\Pages;
 use App\Filament\Resources\AdGroupsResource\RelationManagers;
 use App\Models\AdGroups;
+use App\Models\AdUsers;
+use App\Models\AdOrganizationalUnits;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,6 +19,9 @@ use Filament\Infolists\Infolist;
 use Filament\Infolists;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Tabs;
+use Filament\Forms\Components\Section as FormSection;
+use Filament\Forms\Components\Split;
+use Filament\Notifications\Notification;
 
 class AdGroupsResource extends Resource
 {
@@ -102,6 +107,56 @@ class AdGroupsResource extends Resource
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('Create')
+                ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
+                ->icon('heroicon-o-plus')
+                ->modalIcon('heroicon-o-plus')
+                ->form([
+                    FormSection::make([
+                        Forms\Components\TextInput::make('name')
+                        ->maxLength(50)
+                        ->required(),
+                        Forms\Components\TextInput::make('description')
+                        ->maxLength(255)
+                        ->required(),
+                        Forms\Components\TextInput::make('email')
+                        ->maxLength(255)
+                        ->required(),
+                    ])->columns(2),
+                    FormSection::make([
+                        Forms\Components\Select::make('users')
+                        ->options(AdUsers::allUsers())
+                        ->multiple()
+                        ->required()
+                        ->preload()
+                        ->searchable(),
+                        Forms\Components\Select::make('organizational_unit')
+                        ->options(AdOrganizationalUnits::allOus())
+                        ->required()
+                        ->preload()
+                        ->searchable()
+                    ])->columns(2),
+                ])->action(function ($data) {
+                    try {
+                        AdGroups::createGroup($data);
+                        Notification::make()
+                            ->title('Created')
+                            ->icon('heroicon-m-check-circle')
+                            ->success()
+                            ->send();
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->title('Create Process Failed')
+                            ->icon('heroicon-o-exclamation-triangle')
+                            ->body($e->getMessage())
+                            ->persistent()
+                            ->danger()
+                            ->send();
+                    }
+                    
+                }),
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),

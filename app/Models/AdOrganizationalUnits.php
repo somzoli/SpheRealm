@@ -27,7 +27,7 @@ class AdOrganizationalUnits extends Model
     public function getRows()
     {
         $setting = env('LDAP_BASE_DN');
-        $ous = OrganizationalUnit::in($setting)->get()->sortBy('name');
+        $ous = OrganizationalUnit::in($setting)->recursive()->get()->sortBy('name');
         foreach ($ous as $ou) {
             $oudata[] = [
                 'name' => $ou->getFirstAttribute('name'),
@@ -47,7 +47,7 @@ class AdOrganizationalUnits extends Model
     {
         $setting = env('LDAP_BASE_DN');
         $until = new \DateTime('+2 hours');
-        $ous = OrganizationalUnit::in($setting)->cache($until)->get()->sortBy('name');
+        $ous = OrganizationalUnit::in($setting)->cache($until)->recursive()->get()->sortBy('name');
         foreach ($ous as $ou) {
             $result[$ou->getFirstAttribute('distinguishedname')] = 
                 $ou->getFirstAttribute('distinguishedname');

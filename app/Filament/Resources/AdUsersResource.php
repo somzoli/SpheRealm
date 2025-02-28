@@ -98,14 +98,18 @@ class AdUsersResource extends Resource
                     ->email(),
                     Forms\Components\TextInput::make('description')
                     ->maxLength(255),
+                    Forms\Components\TextInput::make('password')
+                        ->required()
+                        ->maxLength(255)
+                        ->password(),
                 ])->columns(2),
                 FormSection::make([
-                    Forms\Components\Select::make('InGroups')
+                    Forms\Components\Select::make('groups')
                     ->options(AdGroups::allGroups())
                     ->multiple()
                     ->preload()
                     ->searchable(),
-                    Forms\Components\Select::make('InOrgUnit')
+                    Forms\Components\Select::make('organizational_unit')
                     ->options(AdOrganizationalUnits::allOus())
                     ->preload()
                     ->searchable()
@@ -194,13 +198,13 @@ class AdUsersResource extends Resource
                         ->password(),
                     ])->columns(2),
                     FormSection::make([
-                        Forms\Components\Select::make('InGroups')
+                        Forms\Components\Select::make('groups')
                         ->options(AdGroups::allGroups())
                         ->multiple()
                         ->required()
                         ->preload()
                         ->searchable(),
-                        Forms\Components\Select::make('InOrgUnit')
+                        Forms\Components\Select::make('organizational_unit')
                         ->options(AdOrganizationalUnits::allOus())
                         ->required()
                         ->preload()
@@ -230,8 +234,8 @@ class AdUsersResource extends Resource
                 /*Tables\Actions\EditAction::make()
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
                 ->icon('heroicon-o-pencil')
-                ->modalIcon('heroicon-o-pencil-square'),*/
-                Tables\Actions\ViewAction::make(),
+                ->modalIcon('heroicon-o-pencil-square'),
+                Tables\Actions\ViewAction::make(),*/
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([
@@ -252,7 +256,7 @@ class AdUsersResource extends Resource
         return [
             'index' => Pages\ListAdUsers::route('/'),
             //'create' => Pages\CreateAdUsers::route('/create'),
-            //'view' => Pages\EditAdUsers::route('/{record}/edit'),
+            //'edit' => Pages\EditAdUsers::route('/{record}/edit'),
             'view' => Pages\ViewAdUser::route('/{record}'),
         ];
     }

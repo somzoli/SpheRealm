@@ -71,7 +71,7 @@ class AdUsers extends Model
 		ini_set('max_execution_time', '3000');
 		$setting = env('LDAP_BASE_DN');
         $until = new \DateTime('+2 hours');
-        $users = User::in($setting)->cache($until)->get()->sortBy('name');
+        $users = User::in($setting)->cache($until)->recursive()->get()->sortBy('name');
         foreach ($users as $user) {
             // Store avatar
             $avatar = (! empty($user->getFirstAttribute('jpegphoto'))) ? $user->getFirstAttribute('jpegphoto') : $user->getFirstAttribute('thumbnailPhoto');
@@ -103,9 +103,21 @@ class AdUsers extends Model
         return !empty($data) ? $data : [];
     }
 
+    public static function allUsers($data = null)
+    {
+        $setting = env('LDAP_BASE_DN');
+        $until = new \DateTime('+2 hours');
+        $users = User::in($setting)->cache($until)->recursive()->get()->sortBy('name');
+        foreach ($users as $user) {
+            $result[$user->getFirstAttribute('distinguishedname')] = 
+                $user->getFirstAttribute('distinguishedname');
+        }
+        return !empty($result) ? $result : [];
+    }
+
     public static function createUser($data)
     {
-        !empty($data['InOrgUnit']) ? $setting =  $data['InOrgUnit'] : $setting = env('LDAP_BASE_DN');
+        !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
         $user = (new User)->inside($setting);
         $user->cn = $data['name'];
         $user->unicodePwd = $data['password'];
@@ -119,8 +131,8 @@ class AdUsers extends Model
         $user->userAccountControl = 512;
         try {
             $user->save();
-            if (!empty($data['InGroups'])) {
-                foreach ($data['InGroups'] as $group) {
+            if (!empty($data['groups'])) {
+                foreach ($data['groups'] as $group) {
                     $grp = Group::findOrFail($group);
                     $user->groups()->attach($grp);
                 }
@@ -129,6 +141,7 @@ class AdUsers extends Model
             return 'Failed to create User.'.$e;
         }
     }
+
     public function groups(): HasMany
     {
         return $this->hasMany(Group::class, 'member');

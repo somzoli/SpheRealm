@@ -32,7 +32,7 @@ class AdGroups extends Model
         ini_set('memory_limit', '1024M');
 		ini_set('max_execution_time', '3000');
 		$setting = env('LDAP_BASE_DN');
-        $groups = Group::in($setting)->get()->sortBy('name');
+        $groups = Group::in($setting)->recursive()->get()->sortBy('name');
         foreach ($groups as $group) {
             $groupdata[] = [
                 'name' => $group->getFirstAttribute('name'),
@@ -54,16 +54,36 @@ class AdGroups extends Model
         return !empty($groupdata) ? $groupdata : [];
     }
 
-    public static function allGroups()
+    public static function allGroups($data = null)
     {
         $setting = env('LDAP_BASE_DN');
         $until = new \DateTime('+2 hours');
-        $groups = Group::in($setting)->cache($until)->get()->sortBy('name');
+        $groups = Group::in($setting)->cache($until)->recursive()->get()->sortBy('name');
         foreach ($groups as $group) {
             $result[$group->getFirstAttribute('distinguishedname')] = 
                 $group->getFirstAttribute('distinguishedname');
         }
         return !empty($result) ? $result : [];
+    }
+
+    public static function createGroup($data)
+    {
+        !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
+        $group = (new Group)->inside($setting);
+        $group->cn = $data['name'];
+        $group->description = $data['description'];
+        $group->mail = $data['email'];
+        try {
+            $group->save();
+            if (!empty($data['users'])) {
+                foreach ($data['users'] as $user) {
+                    $usr = User::findOrFail($user);
+                    $group->members()->attach($usr);
+                }
+            }
+        } catch (\LdapRecord\LdapRecordException $e) {
+            return 'Failed to create Group.'.$e;
+        }
     }
 
     public function members(): HasMany
