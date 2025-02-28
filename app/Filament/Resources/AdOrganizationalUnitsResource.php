@@ -93,6 +93,13 @@ class AdOrganizationalUnitsResource extends Resource
                         ->maxLength(255)
                         ->required(),
                     ])->columns(2),
+                    FormSection::make([
+                        Forms\Components\Select::make('organizational_unit')
+                        ->options(AdOrganizationalUnits::allOus())
+                        ->required()
+                        ->preload()
+                        ->searchable()
+                    ])->columns(1),
                 ])->action(function ($data) {
                     try {
                         AdOrganizationalUnits::createOu($data);
