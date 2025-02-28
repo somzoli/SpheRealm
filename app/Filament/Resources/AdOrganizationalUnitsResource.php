@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AdOrganizationalUnitsResource\Pages;
 use App\Filament\Resources\AdOrganizationalUnitsResource\RelationManagers;
 use App\Models\AdOrganizationalUnits;
+use App\Models\AdGroups;
+use App\Models\AdUsers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,6 +18,9 @@ use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Tabs;
+use Filament\Forms\Components\Section as FormSection;
+use Filament\Forms\Components\Split;
+use Filament\Notifications\Notification;
 
 class AdOrganizationalUnitsResource extends Resource
 {
@@ -23,7 +28,7 @@ class AdOrganizationalUnitsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-c-building-library';
     protected static ?string $navigationGroup = 'Domain';
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Org Units';
 
     public static function infolist(Infolist $infolist): Infolist
@@ -73,6 +78,40 @@ class AdOrganizationalUnitsResource extends Resource
             ])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                Tables\Actions\Action::make('Create OrganizationalUnit')
+                ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
+                ->icon('heroicon-o-plus')
+                ->modalIcon('heroicon-o-plus')
+                ->form([
+                    FormSection::make([
+                        Forms\Components\TextInput::make('name')
+                        ->maxLength(50)
+                        ->required(),
+                        Forms\Components\TextInput::make('description')
+                        ->maxLength(255)
+                        ->required(),
+                    ])->columns(2),
+                ])->action(function ($data) {
+                    try {
+                        AdOrganizationalUnits::createOu($data);
+                        Notification::make()
+                            ->title('Created')
+                            ->icon('heroicon-m-check-circle')
+                            ->success()
+                            ->send();
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->title('Create Process Failed')
+                            ->icon('heroicon-o-exclamation-triangle')
+                            ->body($e->getMessage())
+                            ->persistent()
+                            ->danger()
+                            ->send();
+                    }
+                    
+                }),
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),

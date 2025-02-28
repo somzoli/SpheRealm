@@ -54,4 +54,17 @@ class AdOrganizationalUnits extends Model
         }
         return !empty($result) ? $result : [];
     }
+
+    public static function createOu($data)
+    {
+        !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
+        $ou = (new OrganizationalUnit)->inside($setting);
+        $ou->ou = $data['name'];
+        $ou->description = $data['description'];
+        try {
+            $ou->save();
+        } catch (\LdapRecord\LdapRecordException $e) {
+            return 'Failed to create OU.'.$e;
+        }
+    }
 }

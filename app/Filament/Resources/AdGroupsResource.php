@@ -109,7 +109,7 @@ class AdGroupsResource extends Resource
                 //
             ])
             ->headerActions([
-                Tables\Actions\Action::make('Create')
+                Tables\Actions\Action::make('Create Group')
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
                 ->icon('heroicon-o-plus')
                 ->modalIcon('heroicon-o-plus')
