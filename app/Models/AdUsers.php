@@ -146,7 +146,7 @@ class AdUsers extends Model
 
     public static function resetPassword($admodel,$data) 
     {
-        $user = User::find($admodel->getFirstAttribute('distinguishedname'));
+        $user = User::find($admodel['distinguishedname']);
         $user->unicodePwd = $data['password'];
         try {
             $user->save();
