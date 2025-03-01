@@ -236,6 +236,38 @@ class AdUsersResource extends Resource
                 ->icon('heroicon-o-pencil')
                 ->modalIcon('heroicon-o-pencil-square'),*/
                 Tables\Actions\ViewAction::make(),
+                Tables\Actions\Action::make('ResetPasswd')
+                ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
+                ->icon('heroicon-o-key')
+                ->modalIcon('heroicon-o-key')
+                ->color('danger')
+                ->button()
+                ->form([
+                    FormSection::make([
+                        Forms\Components\TextInput::make('password')
+                        ->required()
+                        ->maxLength(255)
+                        ->password(),
+                    ])->columns(1),
+                ])->action(function (AdUsers $admodel,$data) {
+                    try {
+                        AdUsers::resetPassword($admodel,$data);
+                        Notification::make()
+                            ->title('Password Updated')
+                            ->icon('heroicon-m-check-circle')
+                            ->success()
+                            ->send();
+                    } catch (\Throwable $e) {
+                        Notification::make()
+                            ->title('Process Failed')
+                            ->icon('heroicon-o-exclamation-triangle')
+                            ->body($e->getMessage())
+                            ->persistent()
+                            ->danger()
+                            ->send();
+                    }
+                    
+                }),
             ])
             ->bulkActions([
                 /*Tables\Actions\BulkActionGroup::make([

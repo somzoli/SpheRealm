@@ -10,6 +10,7 @@ use LdapRecord\Models\ActiveDirectory\Group;
 use LdapRecord\Models\Attributes\AccountControl;
 use Illuminate\Support\Facades\Storage;
 use LdapRecord\Models\Attributes\Timestamp;
+use Exception;
 
 class AdUsers extends Model
 {
@@ -117,6 +118,7 @@ class AdUsers extends Model
 
     public static function createUser($data)
     {
+        User::where('samaccountname', '=', $data['username'])->exists() ? throw new Exception('User exists.') : null;
         !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
         $user = (new User)->inside($setting);
         $user->cn = $data['name'];
@@ -140,6 +142,25 @@ class AdUsers extends Model
         } catch (\LdapRecord\LdapRecordException $e) {
             return 'Failed to create User.'.$e;
         }
+    }
+
+    public static function resetPassword($admodel,$data) 
+    {
+        $user = User::find($admodel->getFirstAttribute('distinguishedname'));
+        $user->unicodePwd = $data['password'];
+        try {
+            $user->save();
+        } catch (\LdapRecord\Exceptions\InsufficientAccessException $ex) {
+            // The currently bound LDAP user does nothave permission to reset passwords.
+            return 'Failed resetting password'.$ex;
+        } catch (\LdapRecord\Exceptions\ConstraintException $ex) {
+            // The users new password does not abide by the domains password policy.
+            return 'Failed resetting password'.$ex;
+        } catch (\LdapRecord\LdapRecordException $ex) {
+            // Failed resetting password. Get the last LDAP error to determine the cause of failure.
+            return 'Failed resetting password'.$ex;
+        }
+        
     }
 
     public function groups(): HasMany

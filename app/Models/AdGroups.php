@@ -68,6 +68,7 @@ class AdGroups extends Model
 
     public static function createGroup($data)
     {
+        Group::where('cn', '=', $data['name'])->exists() ? throw new Exception('Group exists.') : null;
         !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
         $group = (new Group)->inside($setting);
         $group->cn = $data['name'];

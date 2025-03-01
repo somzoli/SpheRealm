@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models;
 use LdapRecord\Models\ActiveDirectory\OrganizationalUnit;
+use Exception;
 
 class AdOrganizationalUnits extends Model
 {
@@ -57,6 +58,7 @@ class AdOrganizationalUnits extends Model
 
     public static function createOu($data)
     {
+        OrganizationalUnit::where('ou', '=', $data['name'])->exists() ? throw new Exception('OU exists.') : null;
         !empty($data['organizational_unit']) ? $setting =  $data['organizational_unit'] : $setting = env('LDAP_BASE_DN');
         $ou = (new OrganizationalUnit)->inside($setting);
         $ou->ou = $data['name'];

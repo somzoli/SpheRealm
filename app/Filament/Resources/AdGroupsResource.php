@@ -119,22 +119,18 @@ class AdGroupsResource extends Resource
                         ->maxLength(50)
                         ->required(),
                         Forms\Components\TextInput::make('description')
-                        ->maxLength(255)
-                        ->required(),
+                        ->maxLength(255),
                         Forms\Components\TextInput::make('email')
-                        ->maxLength(255)
-                        ->required(),
+                        ->maxLength(255),
                     ])->columns(2),
                     FormSection::make([
                         Forms\Components\Select::make('users')
                         ->options(AdUsers::allUsers())
                         ->multiple()
-                        ->required()
                         ->preload()
                         ->searchable(),
                         Forms\Components\Select::make('organizational_unit')
                         ->options(AdOrganizationalUnits::allOus())
-                        ->required()
                         ->preload()
                         ->searchable()
                     ])->columns(2),
