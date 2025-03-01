@@ -240,8 +240,7 @@ class AdUsersResource extends Resource
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
                 ->icon('heroicon-o-key')
                 ->modalIcon('heroicon-o-key')
-                ->color('danger')
-                ->button()
+                ->color('warning')
                 ->form([
                     FormSection::make([
                         Forms\Components\TextInput::make('password')
