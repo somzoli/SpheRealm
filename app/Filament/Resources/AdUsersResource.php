@@ -234,7 +234,7 @@ class AdUsersResource extends Resource
                 /*Tables\Actions\EditAction::make()
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
                 ->icon('heroicon-o-pencil')
-                ->modalIcon('heroicon-o-pencil-square'),*/
+                ->modalIcon('heroicon-o-pencil-square'),*/ 
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\Action::make('ResetPasswd')
                 ->visible(fn(): bool => auth()->user()->hasRole('super_admin'))
